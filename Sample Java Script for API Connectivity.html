@@ -1,0 +1,100 @@
+// Function to create a new student record in the database
+function createStudent(studentData) {
+  fetch('<YOUR_API_ENDPOINT>', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(studentData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('New student created:', data);
+    // Handle success or any additional actions after creating the student
+  })
+  .catch(error => {
+    console.error('Error creating student:', error);
+    // Handle error
+  });
+}
+
+// Function to retrieve a student record from the database
+function getStudent(rollNo) {
+  fetch(`<YOUR_API_ENDPOINT>?rollNo=${rollNo}`, {
+    method: 'GET',
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Retrieved student data:', data);
+    // Populate form fields with retrieved student data or perform other actions
+  })
+  .catch(error => {
+    console.error('Error fetching student:', error);
+    // Handle error
+  });
+}
+
+// Function to update an existing student record in the database
+function updateStudent(rollNo, updatedData) {
+  fetch(`<YOUR_API_ENDPOINT>?rollNo=${rollNo}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Student updated:', data);
+    // Handle success or any additional actions after updating the student
+  })
+  .catch(error => {
+    console.error('Error updating student:', error);
+    // Handle error
+  });
+}
+
+// Function to delete a student record from the database
+function deleteStudent(rollNo) {
+  fetch(`<YOUR_API_ENDPOINT>?rollNo=${rollNo}`, {
+    method: 'DELETE',
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Student deleted successfully');
+      // Handle success or any additional actions after deleting the student
+    } else {
+      throw new Error('Failed to delete student');
+    }
+  })
+  .catch(error => {
+    console.error('Error deleting student:', error);
+    // Handle error
+  });
+}
+
+// Example usage:
+const newStudentData = {
+  rollNo: 'S001',
+  fullName: 'John Doe',
+  class: '10th Grade',
+  birthDate: '2005-05-15',
+  address: '123 Main Street',
+  enrollmentDate: '2023-11-27'
+};
+
+createStudent(newStudentData);
+
+// Replace 'S001' with an actual Roll No to retrieve, update, or delete a specific student
+const rollNumber = 'S001';
+
+getStudent(rollNumber);
+
+const updatedStudentData = {
+  fullName: 'John Smith',
+  address: '456 Elm Street'
+};
+
+updateStudent(rollNumber, updatedStudentData);
+
+deleteStudent(rollNumber);
